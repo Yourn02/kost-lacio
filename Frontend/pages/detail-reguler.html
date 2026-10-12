@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Kamar Reguler - Kost Exquisite</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header Sederhana -->
+    <header>
+        <h2>Kost Exquisite</h2>
+        <a href="../index.html">← Kembali ke Utama</a>
+    </header>
+
+    <div class="container">
+        <a href="../index.html#kamar" class="btn-back">← Kembali ke daftar kamar</a>
+
+        <!-- GRID UTAMA HALAMAN DETAIL -->
+        <div class="detail-grid">
+
+            <!-- SISI KIRI: Foto & Galeri 3 Tingkat -->
+            <div class="gallery-container">
+                <!-- Tingkat 1: Foto Utama Landscape (Langsung Zoom Saat Diklik) -->
+                <div class="main-img-wrapper">
+                    <img id="mainImage" class="main-img zoomable" src="../assets/images/rooms/reguler-1.jpeg"
+                        alt="Foto Utama Kamar" onerror="this.src='https://via.placeholder.com/600x380?text=Foto+Utama'">
+                </div>
+
+                <!-- Tingkat 2: 3 Foto Portrait (Tukar Foto Utama + Zoom Modal) -->
+                <div class="photo-grid-portrait">
+                    <div class="grid-item">
+                        <img src="../assets/images/rooms/d-reg-1.jpg" onclick="handleImageClick(this)" alt="Foto 1"
+                            onerror="this.src='https://via.placeholder.com/200x320?text=Foto+1'">
+                    </div>
+                    <div class="grid-item">
+                        <img src="../assets/images/rooms/d-reg-2.jpg" onclick="handleImageClick(this)" alt="Foto 2"
+                            onerror="this.src='https://via.placeholder.com/200x320?text=Foto+2'">
+                    </div>
+                    <div class="grid-item">
+                        <img src="../assets/images/rooms/d-reg-3.jpg" onclick="handleImageClick(this)" alt="Foto 3"
+                            onerror="this.src='https://via.placeholder.com/200x320?text=Foto+3'">
+                    </div>
+                </div>
+
+                <!-- Tingkat 3: Foto Landscape Bawah (Tukar Foto Utama + Zoom Modal) -->
+                <div class="bottom-img-wrapper">
+                    <img src="../assets/images/rooms/extra.jpeg" class="bottom-img" onclick="handleImageClick(this)"
+                        alt="Fasilitas Tambahan"
+                        onerror="this.src='https://via.placeholder.com/600x250?text=Foto+Tambahan'" />
+                </div>
+            </div> <!-- AKHIR SISI KIRI -->
+
+
+            <!-- SISI KANAN: Informasi Kamar (Harga, Deskripsi, Fasilitas) -->
+            <div class="info-container">
+                <span class="badge-reguler">TIPE REGULER</span>
+                <h1>Kamar Reguler</h1>
+
+                <!-- RINCIAN HARGA -->
+                <div class="price-box"
+                    style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 1rem; border-radius: 8px; margin: 0.5rem 0 1rem 0;">
+                    <div
+                        style="font-weight: 600; color: #1e293b; margin-bottom: 0.5rem; border-bottom: 1px solid #cbd5e1; padding-bottom: 0.25rem;">
+                        <i class="fa-solid fa-tags"></i> Rincian Tarif Sewa / Tahun
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <span style="color: #475569;"><i class="fa-solid fa-user"></i> Kapasitas 1 Orang:</span>
+                        <strong style="color: #2563eb; font-size: 1.1rem;"><span id="detail-harga-1">Rp 6.500.000</span><span
+                                style="font-size: 0.8rem; font-weight: normal; color: #64748b;">/ thn</span></strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: #475569;"><i class="fa-solid fa-user-group"></i> Kapasitas 2 Orang:</span>
+                        <strong style="color: #2563eb; font-size: 1.1rem;"><span id="detail-harga-2">Rp 7.500.000</span> <span
+                                style="font-size: 0.8rem; font-weight: normal; color: #64748b;">/ thn</span></strong>
+                    </div>
+                </div>
+
+                <!-- DESKRIPSI -->
+                <div class="description-card">
+                    <div class="section-title">Deskripsi Kamar</div>
+                    <p>Kamar tipe Reguler menawarkan hunian yang nyaman, bersih, dan fungsional dengan ukuran kamar 4x5
+                        meter. Sangat cocok untuk mahasiswa maupun pekerja yang membutuhkan tempat tinggal privat dengan
+                        fasilitas esensial yang lengkap.</p>
+                </div>
+
+                <!-- FASILITAS -->
+                <div class="facilities-section">
+                    <div class="section-title">Fasilitas Kamar</div>
+                    <ul class="facility-list">
+                        <li>Kipas Angin</li>
+                        <li>Kamar Mandi Dalam</li>
+                        <li>Kasur Busa Ukuran Besar</li>
+                        <li>Lemari Pakaian Kayu</li>
+                    </ul>
+                </div>
+
+                <!-- FASILITAS UMUM -->
+                <div class="facilities-section">
+                    <div class="section-title">Fasilitas Umum & Gratis</div>
+                    <ul class="facility-list">
+                        <li>Dapur Umum (Kulkas, Kompor Gas, Alat Masak)</li>
+                        <li>Free Wifi</li>
+                        <li>Free Gas & Free Listrik</li>
+                        <li>Free Sampah & Kebersihan</li>
+                        <li>Gazebo Bersantai</li>
+                        <li>Parkiran Luas</li>
+                        <li>CCTV Keamanan 24 Jam</li>
+                    </ul>
+                </div>
+            </div> <!-- AKHIR SISI KANAN -->
+
+
+            <!-- TOMBOL CTA WHATSAPP -->
+            <a id="btnWaReguler" href="#" target="_blank" class="btn-whatsapp">
+                <i class="fab fa-whatsapp"></i> Hubungi Admin via WhatsApp
+            </a>
+
+        </div> <!-- AKHIR .detail-grid -->
+    </div> <!-- AKHIR .container -->
+
+    <!-- Modal Lightbox Zoom Foto Universal -->
+    <div id="imageZoomModal" class="image-zoom-modal" onclick="closeImageZoom()">
+        <span class="image-zoom-close" onclick="closeImageZoom()">&times;</span>
+        <img id="zoomedImage" src="" alt="Zoomed Image" onclick="event.stopPropagation()">
+    </div>
+
+    <!-- JavaScript External & Internal Script -->
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/main.js"></script>
+
+    <!-- Skrip Internal Halaman Detail -->
+    <script>
+        /**
+         * Fungsi menangani klik foto kecil/galeri:
+         * 1. Mengubah Foto Utama di paling atas.
+         * 2. Langsung menampilkan Modal Zoom untuk memperbesar gambar tersebut.
+         */
+        function handleImageClick(element) {
+            const imgSrc = element.src;
+            
+            // 1. Ubah foto utama
+            const mainImg = document.getElementById('mainImage');
+            if (mainImg) {
+                mainImg.src = imgSrc;
+            }
+
+            // 2. Buka Pop-up Zoom jika fungsi openImageZoom tersedia
+            if (typeof openImageZoom === 'function') {
+                openImageZoom(imgSrc);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Perbaikan ID tombol WhatsApp untuk Reguler
+            const btnWa = document.getElementById('btnWaReguler');
+            if (btnWa && typeof CONFIG !== 'undefined') {
+                const message = encodeURIComponent("Halo Admin, saya tertarik untuk menyewa Kamar Tipe Reguler.");
+                btnWa.href = `https://wa.me/${CONFIG.ADMIN_WA_NUMBER}?text=${message}`;
+            }
+
+            // Panggil harga detail dari database
+            if (typeof loadHargaDetail === 'function') {
+                loadHargaDetail('Reguler');
+            }
+        });
+    </script>
+</body>
+
+</html>

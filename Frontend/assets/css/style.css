@@ -1,0 +1,1529 @@
+        /* ==========================================================================
+        1. RESET & VARIABLES
+        ========================================================================== */
+        :root {
+            /* Color Palette */
+            --primary-color: #2563eb;       /* Primary Blue */
+            --primary-hover: #1d4ed8;
+            --secondary-color: #1e293b;     /* Dark Slate */
+            --secondary-hover: #334155;
+            --accent-color: #38bdf8;        /* Light Blue */
+            --bg-light: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --text-light: #f1f5f9;
+            
+            /* Status Colors */
+            --status-kosong: #2563eb;       
+            --status-terisi: #64748b;
+
+            /* Typography & Spacing */
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ==========================================================================
+        2. NAVBAR & HEADER
+        ========================================================================== */
+            header {
+            background-color: #0f172a;
+            color: #fff;
+            padding: 1.1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(56, 189, 248, 0.2); 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(8px);
+        }
+
+        header .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.8rem;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            color: #cbd5e1;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s, transform 0.2s;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+            transform: translateY(-1px);
+        }
+
+        /* Tombol Hamburger (Awalnya tersembunyi di layar laptop/desktop) */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .menu-toggle .bar {
+            height: 3px;
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Animasi perubahan ikon garis tiga menjadi silang (X) */
+        .menu-toggle.is-active .bar:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .menu-toggle.is-active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.is-active .bar:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* ==========================================================================
+        3. HERO / PROFILE SECTION (SLIDER FOTO)
+        ========================================================================== */
+        .hero-profile {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 4rem 5%;
+        }
+
+        .hero-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 1.05rem;
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text .btn-cta {
+            background-color: var(--accent-color);
+            color: var(--text-dark);
+            padding: 0.8rem 2rem;
+            font-weight: bold;
+            border-radius: 30px;
+            font-size: 1rem;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .hero-text .btn-cta:hover {
+            background-color: #0284c7;
+            color: white;
+        }
+
+        /* Container Slider Foto */
+        .hero-image-box {
+            flex: 1;
+            max-width: 480px;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero-slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-slide.active {
+            display: block;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-slide img.img-hero-1 { object-position: top; }
+        .hero-slide img.img-hero-2 { object-position: center 40%; }
+        .hero-slide img.img-hero-3 { object-position: center 70%; }
+        .hero-slide img.img-hero-4 { object-position: center 70%; }
+        .hero-slide img.img-hero-5 { object-position: center 70%; }
+
+        /* Indicator Dots Slider */
+        .slider-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: #ffffff;
+            width: 24px;
+            border-radius: 10px;
+        }
+
+        /* Navigasi Prev/Next */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 14px;
+            transition: 0.3s;
+            z-index: 10;
+            user-select: none;
+        }
+
+        .slider-btn:hover { background: rgba(0, 0, 0, 0.7); }
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
+
+        @keyframes fadeIn {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+
+        /* ==========================================================================
+        4. LAYOUT, CONTAINER & DESAIN JUDUL SEKSI
+        ========================================================================== */
+        .container {
+            max-width: 1100px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header Badge untuk Seksi Tipe Kamar & Ketersediaan Kamar */
+        .section-title-badge {
+            text-align: center;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
+            border: 1px solid #bae6fd;
+            padding: 1.5rem 2rem;
+            border-radius: var(--radius-xl);
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.05);
+        }
+
+        .section-title-badge h2 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: #1e3a8a;
+            margin: 0 0 0.4rem 0;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title-badge p {
+            font-size: 1rem;
+            color: #475569;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            transition: color 0.3s, transform 0.2s;
+        }
+
+        .btn-back:hover {
+            color: var(--primary-color);
+            transform: translateX(-3px);
+        }
+
+        /* ==========================================================================
+        5. FASILITAS UMUM (LANDING PAGE)
+        ========================================================================== */
+        .facilities-section-main {
+            background: #ffffff;
+            padding: 3rem 2rem;
+            border-radius: var(--radius-xl);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin: 2rem 0;
+        }
+
+        .section-header-center {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header-center h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header-center p {
+            font-size: 1rem;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .facilities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .facility-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-lg);
+            padding: 1.8rem 1.5rem;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .facility-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+            border-color: #cbd5e1;
+        }
+
+        .facility-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .facility-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .facility-card p {
+            font-size: 0.88rem;
+            color: #64748b;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* ==========================================================================
+        6. TIPE KAMAR LANDING PAGE (REGULER & VIP)
+        ========================================================================== */
+        .room-types-section {
+            margin: 3rem 0;
+        }
+
+        .room-grid-two {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .room-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .room-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .room-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .room-card-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .badge-type {
+            align-self: flex-start;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .room-card h3 {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .room-price {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .room-price span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: normal;
+        }
+
+        .btn-detail {
+            margin-top: auto;
+            display: block;
+            text-align: center;
+            background-color: var(--secondary-color);
+            color: #fff;
+            padding: 0.75rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-detail:hover {
+            background-color: #06b6d4;
+        }
+
+        /* ==========================================================================
+        7. STATUS KETERSEDIAAN KAMAR / DENAH
+        ========================================================================== */
+        .room-availability-section {
+            margin-top: 4rem;
+        }
+
+        .status-container {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .status-legend {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .status-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+        .status-dot.status-available { background-color: var(--status-kosong); }
+        .status-dot.status-occupied { background-color: var(--status-terisi); }
+
+        .denah-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .denah-box {
+            background-color: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .denah-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e293b;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .door-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .door-card {
+            width: 90px;
+            background-color: var(--status-kosong);
+            color: #ffffff;
+            border-radius: 8px;
+            padding: 0.75rem 0.5rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: default;
+        }
+
+        .door-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .door-card.kosong, 
+        .door-card.available { background-color: var(--status-kosong); }
+
+        .door-card.terisi, 
+        .door-card.occupied { background-color: var(--status-terisi); }
+
+        .door-card .room-number {
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .door-card .room-status {
+            font-size: 0.7rem;
+            margin-top: 0.2rem;
+            opacity: 0.85;
+        }
+
+        /* ==========================================================================
+        8. DETAIL PAGE (GRID KAMAR & GALERI SEJAJAR)
+        ========================================================================== */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem 2rem;
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            align-items: start;
+        }
+
+        @media (min-width: 768px) {
+            .detail-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* --- SISI KIRI: GALERI FOTO 3 TINGKAT --- */
+        .gallery-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .main-img-wrapper {
+            width: 100%;
+            height: 285px;
+        }
+
+        .main-img-wrapper .main-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .photo-grid-portrait {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .photo-grid-portrait .grid-item {
+            height: 250px;
+        }
+
+        .photo-grid-portrait .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .photo-grid-portrait .grid-item img:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .bottom-img-wrapper {
+            width: 100%;
+            height: 285px;
+        }
+
+        .bottom-img-wrapper .bottom-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .bottom-img-wrapper .bottom-img:hover {
+            transform: translateY(-2px);
+        }
+
+        /* --- SISI KANAN: INFORMASI KAMAR --- */
+        .info-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .badge-reguler, 
+        .badge-vip {
+            display: inline-block;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            width: fit-content;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .badge-reguler { background-color: var(--primary-color); }
+        .badge-vip { background-color: #8b5cf6; }
+
+        .info-container h1 {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .price-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .description-card,
+        .facilities-section {
+            margin-bottom: 1rem;
+        }
+
+        .description-card .section-title,
+        .facilities-section .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .description-card p {
+            font-size: 0.92rem;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .facility-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.6rem;
+            margin-bottom: 0;
+            padding: 0;
+        }
+
+        .facility-list li {
+            font-size: 0.88rem;
+            color: #334155;
+            background: #f8fafc;
+            padding: 0.5rem 0.7rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .facility-list li::before {
+            content: "✓";
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* --- TOMBOL WHATSAPP BAWAH --- */
+        .btn-whatsapp {
+            grid-column: 1 / -1;
+            margin-top: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            text-align: center;
+            background-color: #06b6d4;
+            color: white;
+            text-decoration: none;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            font-weight: bold;
+            font-size: 1.05rem;
+            transition: background 0.3s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25);
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #0891b2;
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================================================
+        9. KONTAK SECTION
+        ========================================================================== */
+        .contact-section {
+            padding: 0px 0;
+            text-align: center;
+        }
+
+        .contact-card {
+            max-width: 500px;
+            margin: 30px auto 0;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            color: #25d366;
+            margin-bottom: 15px;
+        }
+
+        .btn-blue-wa {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 28px;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-blue-wa:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            color: #ffffff;
+        }
+
+        .btn-blue-wa i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
+            /* ==========================================================================
+    10. FOOTER & RESPONSIVE DESIGN (UPDATED)
+    ========================================================================== */
+    footer {
+        background-color: var(--text-dark);
+        color: #94a3b8;
+        text-align: center;
+        padding: 2rem 1rem;
+        margin-top: 4rem;
+        font-size: 0.9rem;
+    }
+
+    .admin-footer-link {
+        margin-top: 0.2rem;
+    }
+
+    .btn-admin-login {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: #38bdf8 !important; /* Warna terang cyan agar kelihatan jelas */
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 0.4rem 0.9rem;
+        border-radius: 8px;
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        background-color: rgba(56, 189, 248, 0.1);
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+    }
+
+    .btn-admin-login:hover {
+        background-color: #38bdf8;
+        color: #0f172a !important;
+        box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+    }
+
+    /* Tablet & Layar Sedang */
+    @media (max-width: 992px) {
+        .facilities-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* Mode HP / Mobile */
+    @media (max-width: 768px) {
+        /* Wajib relative agar dropdown nav ul menempel tepat di bawah header */
+        header {
+            position: relative;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            text-align: left;
+        }
+
+        /* Paksa tampilkan tombol hamburger di HP */
+        .menu-toggle {
+            display: flex !important;
+            margin-left: auto;
+        }
+
+        /* Mengubah menu horizontal menjadi dropdown melayang di bawah header */
+        nav ul {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #0f172a;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            max-height: 0; /* Tersembunyi saat awal */
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out;
+            border-bottom: 2px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* Saat tombol diklik (ditambah kelas 'active' lewat JavaScript) */
+        nav ul.active {
+            max-height: 350px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        nav ul li {
+            width: 100%;
+            text-align: center;
+        }
+
+        nav a {
+            display: block;
+            padding: 0.9rem 0;
+            width: 100%;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            background-color: rgba(56, 189, 248, 0.1);
+        }
+
+        /* Layout Konten Lainnya untuk Layar HP */
+        .hero-container {
+            flex-direction: column;
+            text-align: center;
+            gap: 1.5rem;
+        }
+
+        .hero-text h1 {
+            font-size: 1.8rem;
+        }
+
+        .hero-text p {
+            font-size: 0.95rem;
+        }
+
+        .hero-image-box {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .hero-image-box img {
+            height: 220px;
+        }
+
+        .container {
+            padding: 0 1rem;
+            margin: 2rem auto;
+        }
+
+        .status-container,
+        .contact-section,
+        .detail-grid {
+            padding: 1.5rem 1rem;
+        }
+
+        .room-grid-two {
+            grid-template-columns: 1fr;
+        }
+
+        .facility-list {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Layar HP Kecil */
+    @media (max-width: 576px) {
+        .facilities-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .section-header-center h2 {
+            font-size: 1.75rem;
+        }
+
+        .section-title-badge {
+            padding: 1.2rem 1rem;
+            border-radius: 12px;
+        }
+
+        .section-title-badge h2 {
+            font-size: 1.65rem;
+        }
+
+        .section-title-badge p {
+            font-size: 0.88rem;
+        }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* 2. Beri jarak offset agar judul section tidak tertutup oleh Header */
+        section, 
+        #fasilitas, 
+        #tipe-kamar, 
+        #harga, 
+        #ketersediaan, 
+        #kontak {
+            scroll-margin-top: 20px; /* Sesuaikan dengan tinggi header Anda */
+        }
+
+        /* ==========================================
+    CARDS LOKASI GOOGLE MAPS
+    ========================================== */
+    .location-card {
+        background-color: #ffffff;
+        max-width: 600px;
+        margin: 2.5rem auto; /* Memberi jarak atas & bawah antara kamar dan WA */
+        padding: 1.5rem 2rem;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.2rem;
+        border: 1px solid #e2e8f0;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .location-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .location-icon {
+        background-color: #fef2f2;
+        padding: 0.8rem;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .location-info {
+        text-align: left;
+        flex-grow: 1;
+    }
+
+    .location-info h3 {
+        margin: 0 0 0.25rem 0;
+        font-size: 1.1rem;
+        color: #0f172a;
+        font-weight: 700;
+    }
+
+    .location-info p {
+        margin: 0;
+        font-size: 0.85rem;
+        color: #64748b;
+    }
+
+    /* Tombol Google Maps */
+    .btn-maps {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: #ea4335; /* Warna khas Google Maps */
+        color: #ffffff;
+        padding: 0.75rem 1.2rem;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+        box-shadow: 0 4px 12px rgba(234, 67, 53, 0.25);
+    }
+
+    .btn-maps:hover {
+        background-color: #d93025;
+        transform: scale(1.02);
+    }
+
+    /* Penyesuaian Tampilan HP / Mobile */
+    @media (max-width: 640px) {
+        .location-card {
+            flex-direction: column;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            margin: 2rem 1rem;
+        }
+
+        .location-info {
+            text-align: center;
+        }
+
+        .btn-maps {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    /* ==========================================================================
+    11. MODAL LOGIN ADMIN (POP-UP)
+    ========================================================================== */
+
+    /* Overlay latar belakang melayang & memenuhi layar */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(15, 23, 42, 0.75); /* Latar belakang gelap transparan */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999; /* Memastikan modal di atas semua elemen lain */
+        backdrop-filter: blur(4px); /* Efek blur halus */
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Jika modal tersembunyi via kelas 'hidden' atau 'd-none' */
+    .modal-overlay.hidden,
+    .modal-overlay.d-none {
+        display: none !important;
+    }
+
+    /* Kartu Box Modal Pop-up */
+    .modal-card {
+        background: #ffffff;
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        width: 90%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        text-align: center;
+        color: var(--text-dark);
+        animation: modalSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-card h3 {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: var(--secondary-color);
+        margin-bottom: 0.25rem;
+    }
+
+    /* Input Form di dalam Modal */
+    .modal-card input[type="text"],
+    .modal-card input[type="password"] {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #cbd5e1;
+        border-radius: var(--radius-sm);
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        box-sizing: border-box;
+    }
+
+    .modal-card input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    /* Container Tombol Aksi */
+    .modal-card .modal-actions {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 0.5rem;
+    }
+
+    /* General Button Modal */
+    .modal-card button,
+    .modal-card input[type="submit"] {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: background-color 0.2s, transform 0.1s;
+    }
+
+    /* Tombol Masuk / Submit */
+    .modal-card button[type="submit"],
+    .modal-card .btn-submit,
+    #btnLoginAction {
+        background-color: var(--primary-color);
+        color: #ffffff;
+    }
+
+    .modal-card button[type="submit"]:hover,
+    .modal-card .btn-submit:hover,
+    #btnLoginAction:hover {
+        background-color: var(--primary-hover);
+    }
+
+    /* Tombol Batal / Close */
+    .modal-card .btn-close,
+    .modal-card button[type="button"] {
+        background-color: #f1f5f9;
+        color: var(--text-muted);
+    }
+
+    .modal-card .btn-close:hover,
+    .modal-card button[type="button"]:hover {
+        background-color: #e2e8f0;
+        color: var(--text-dark);
+    }
+
+    /* Animasi Kemunculan Modal */
+    @keyframes modalSlideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    /* Kustomisasi tampilan badge mode admin jika muncul */
+    .admin-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin: 20px 0;
+        width: 100%;
+    }
+
+    /* Tampilan badge admin agar di tengah */
+    .admin-badge {
+        display: inline-block;
+        margin: 10px auto;
+        text-align: center;
+    }
+
+    /* Overlay Latar Belakang Modal */
+    .custom-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+
+    .custom-modal-overlay.hidden {
+        display: none !important;
+    }
+
+    /* Kotak Modal */
+    .custom-modal-box {
+        background: #ffffff;
+        padding: 24px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        width: 90%;
+        max-width: 380px;
+        text-align: center;
+        animation: popupScale 0.3s ease-out;
+    }
+
+    @keyframes popupScale {
+        from { transform: scale(0.8); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Judul & Pesan */
+    .custom-modal-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #1e293b;
+        margin-bottom: 8px;
+    }
+
+    .custom-modal-message {
+        font-size: 0.95rem;
+        color: #64748b;
+        margin-bottom: 20px;
+    }
+
+    /* Tombol OK */
+    .custom-modal-btn {
+        background-color: #2563eb;
+        color: white;
+        border: none;
+        padding: 10px 24px;
+        font-size: 0.95rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.2s;
+    }
+
+    .custom-modal-btn:hover {
+        background-color: #1d4ed8;
+    }
+
+    /* 1. Mencegah foto terlihat buram/blur di browser */
+    .detail-image img, 
+    .room-image img {
+        image-rendering: -webkit-optimize-contrast; /* Optimasi ketajaman di Chrome/Safari */
+        image-rendering: crisp-edges;
+        object-fit: cover;
+        cursor: pointer; /* Memberikan indikator bawaan kursor tangan saat di-hover */
+        transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    /* Efek indikator visual saat foto di-hover mouse */
+    .detail-image img:hover, 
+    .room-image img:hover {
+        transform: scale(1.02); /* Sedikit membesar sebagai penanda bisa diklik */
+        filter: brightness(0.95);
+    }
+
+    /* 2. Styling Pop-up Zoom (Modal Lightbox) */
+    .image-zoom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(5px);
+        justify-content: center;
+        align-items: center;
+        cursor: zoom-out;
+    }
+
+    .image-zoom-modal img {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+    }
+
+    .image-zoom-modal.active img {
+        transform: scale(1);
+    }
+
+    /* Tombol Tutup (X) */
+    .image-zoom-close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: #fff;
+        font-size: 35px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .nav-admin-item {
+    margin-left: 1rem;
+}
+
+.btn-admin-nav {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-admin-nav:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-admin-nav.btn-logout {
+    background-color: #ef4444;
+}
+
+.btn-admin-nav.btn-logout:hover {
+    background-color: #dc2626;
+}
+
+/* Card Tambah Kamar Khusus Admin */
+.add-room-card {
+    border: 2px dashed #3b82f6 !important;
+    background-color: rgba(59, 130, 246, 0.05);
+    color: #3b82f6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-room-card:hover {
+    background-color: rgba(59, 130, 246, 0.15);
+    transform: scale(1.03);
+}
+
+/* Tombol Aksi Edit & Hapus */
+.btn-action-edit, .btn-action-delete {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.btn-action-edit:hover {
+    background: #e0f2fe;
+}
+
+.btn-action-delete:hover {
+    background: #fee2e2;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.modal-overlay.hidden {
+  display: none !important;
+}
+.modal-content {
+  background: #ffffff;
+  width: 90%;
+  max-width: 450px;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+.form-group {
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+}
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #334155;
+}
+.form-group input, .form-group select {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+}
+.input-readonly {
+  background-color: #f1f5f9;
+  color: #64748b;
+  cursor: not-allowed;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+.btn-cancel {
+  background: #e2e8f0;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-submit {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
